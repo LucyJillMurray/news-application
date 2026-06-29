@@ -1,0 +1,29 @@
+{# Journalist home page.  #}
+{% extends 'base.html' %}
+
+{% block title %}Journalist Home{% endblock %}
+
+{% block content %}
+    <h1>Welcome, {{ journalist.user.username }}!</h1>
+
+    <p>You are now logged in.</p>
+
+    {# Logout button (POST so it can't be triggered by a plain link) #}
+    <form method="POST" action="{% url 'news:logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+
+
+    {# Journalist navigation bar #}
+    <nav style="margin-top: 20px;">
+        <a href="{% url 'news:journalist_home' %}">Home</a>
+        <a href="{% url 'news:article_directory' %}">Article directory</a>           
+        <a href="{% url 'news:newsletter_directory' %}">Newsletter directory</a>           
+    </nav>
+    <div>
+       <p>Number of Subscribers: {{ subscriber_count }}</p> 
+    </div>
+
+    
+{% endblock %}

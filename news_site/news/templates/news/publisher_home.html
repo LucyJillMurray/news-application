@@ -1,0 +1,54 @@
+{# Publisher Home  Lists every editor with a delete button per #}
+{# row, a link to add a new editor, and a logout button.                     #}
+{% extends 'base.html' %}
+
+{% block title %}Publisher Home{% endblock %}
+
+{% block content %}
+    <h1>Welcome, {{ request.user.username }}!</h1>
+    <p>You are now logged in.</p>
+
+    <h2>Publisher Home</h2>
+     {% if editors %}
+        <table border="1" cellpadding="10" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Remove Editor</th>
+                </tr>
+            </thead>
+            <tbody>
+                {# One row per editor the admin can review/remove #}
+                {% for editor in editors %}
+                    <tr>
+                        <td>{{ editor.title }}</td>
+                        <td>{{ editor.description }}</td>
+                        <td>
+                            {# Remove this editor from the site #}
+                            <form method="POST" action="{% url 'news:delete_editor' editor.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Delete Editor</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No Editors on the site yet.</p>
+    {% endif %}
+
+    <br>
+    
+
+    {# Logout button #}
+    <form method="POST" action="{% url 'news:logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+
+    
+    
+      
+{% endblock %}

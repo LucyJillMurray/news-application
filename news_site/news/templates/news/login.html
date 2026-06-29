@@ -1,0 +1,53 @@
+{# Login page. Shared by readers, journalists and editors; the view decides which #}
+{# home page to send the user to after a successful login. Also links to    #}
+{# password reset and the user sign-up pages.                       #}
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <h2>Login</h2>
+
+    <!-- This form sends login info to the backend using POST -->
+    <form method="POST" action="{% url 'news:login' %}">
+        {% csrf_token %}  <!-- Security token to prevent hacking -->
+
+        <!-- Username input -->
+        <label for="username">Username:</label>
+        <input type="text" name="username" required><br><br>
+
+        <!-- Password input -->
+        <label for="password">Password:</label>
+        <input type="password" name="password" required><br><br>
+
+        <!-- Submit button -->
+        <button type="submit">Login</button>
+    </form>
+
+    <!-- If there's an error (like wrong password), show it -->
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <!-- Link to reset password page -->
+    <p style="margin-top: 10px;">
+        <a href="{% url 'news:request_password_reset' %}">Forgot your password?</a>
+    </p>
+
+    <!-- Link to registration page -->
+    <div style="margin-top: 20px;">
+        <p>Don't have an account?</p>
+        <a href="{% url 'news:register_reader' %}">
+            <button>Sign Up As A Reader</button>
+        </a>
+        <a href="{% url 'news:register_journalist' %}">
+            <button>Sign Up As A Journalist</button>
+        </a>
+        <a href="{% url 'news:register_editor' %}">
+            <button>Sign Up As An Editor</button>
+        </a>
+        <a href="{% url 'news:register_publisher' %}">
+            <button>Sign Up As A Publisher</button>
+        </a>
+    </div>
+{% endblock %}

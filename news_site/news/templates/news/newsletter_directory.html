@@ -1,0 +1,78 @@
+{# Newsletter directory seen by editors and journalists. Lists newsletters with #}
+{# links to update or delete each, plus a button to create a new one.            #}
+{% extends 'base.html' %}
+
+{% block title %}Newsletter Directory{% endblock %}
+
+{% block content %}
+    <nav>
+        {% if user.editor %}
+            {# Editor navigation #}
+            <a href="{% url 'news:editor_home' %}">Home</a>
+            <a href="{% url 'news:newsletter_directory' %}">Newsletter directory</a>
+            <a href="{% url 'news:article_approvals' %}">Article approvals</a>
+            <a href="{% url 'news:publish_articles' %}">Publish articles</a>
+            <a href="{% url 'news:update_published' %}">Published articles</a>
+
+        {% elif user.journalist %}
+            {# Journalist navigation #}
+            <a href="{% url 'news:journalist_home' %}">Home</a>
+            <a href="{% url 'news:article_directory' %}">Article directory</a>
+            <a href="{% url 'news:newsletter_directory' %}">Newsletter directory</a>
+        {% endif %}
+
+    </nav>
+
+
+    <h1>Newsletter List</h1>
+    {% if newsletters %}
+        <table border="1" cellpadding="10" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                    <th>Email Newsletter</th>
+                </tr>
+            </thead>
+            <tbody>
+                {# One table row per matching newsletter #}
+                {% for newsletter in newsletters %}
+                    <tr>
+                        <td>{{ newsletter.title }}</td>
+                        <td>
+                            <a href="{% url 'news:update_newsletter' newsletter.id %}">
+                                <button type="button">Details</button>
+                            </a>
+                        </td>
+                        <td>
+                            {# Remove this newsletter from the site #}
+                            <form method="POST" action="{% url 'news:delete_newsletter' newsletter.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Delete Newsletter</button>
+                            </form>
+                        </td>
+                        <td>
+                            {# Email this newsletter to everyone subscribed to its #}
+                            {# journalist or its publisher.                        #}
+                            <form method="POST" action="{% url 'news:email_newsletter' newsletter.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Email Newsletter</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        {# Shown when there are no newsletters #}
+        <p>No newsletters created yet.</p>
+    {% endif %}
+
+    {# Create button #}
+    <a href="{% url 'news:create_newsletter' %}">
+        <i class="fa-solid fa-plus"></i>
+    </a>
+    
+    <br>
+{% endblock %}

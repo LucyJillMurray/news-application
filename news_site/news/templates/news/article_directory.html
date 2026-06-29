@@ -1,0 +1,70 @@
+{# Article directory seen by journalists. Lists the journalist's own articles #}
+{# with links to view, update or delete each, plus a button to create one.    #}
+{% extends 'base.html' %}
+
+{% block title %}Article Directory{% endblock %}
+
+{% block content %}
+    <nav>
+        <a href="{% url 'news:journalist_home' %}">Home</a>
+        <a href="{% url 'news:article_directory' %}">Article directory</a>
+        <a href="{% url 'news:newsletter_directory' %}">Newsletter directory</a>
+    </nav>
+
+    <h1>Article List</h1>
+    {% if articles %}
+        <table border="1" cellpadding="10" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Publisher</th>
+                    <th>Approval</th>
+                    <th>Publishing Status</th>
+                    <th>Details</th>
+                    <th>Update Article</th>
+                    <th>Remove Article</th>
+                </tr>
+            </thead>
+            <tbody>
+                {# One table row per matching article #}
+                {% for article in articles %}
+                    <tr>
+                        <td>{{ article.title }}</td>
+                        <td>{{ article.author }}</td>
+                        <td>{{ article.publisher }}</td>
+                        <td>{% if article.approved_status %}Approved{% else %}Not approved{% endif %}</td>
+                        <td>{{ article.get_published_status_display }}</td>
+                        <td>
+                            <a href="{% url 'news:article_details' article.id %}">
+                                <button type="button">Details</button>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'news:update_article' article.id %}">
+                                <button type="button">Update Article</button>
+                            </a>
+                        </td>
+                        <td>
+                            {# Remove this article from the site #}
+                            <form method="POST" action="{% url 'news:delete_article' article.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Delete Article</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        {# Shown when there are no articles #}
+        <p>No articles created yet.</p>
+    {% endif %}
+
+    {# Create button #}
+    <a href="{% url 'news:create_article' %}">
+        <i class="fa-solid fa-plus"></i>
+    </a>
+
+    <br>
+{% endblock %}

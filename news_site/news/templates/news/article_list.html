@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Article List{% endblock %}
+
+{% block content %}
+    <nav>
+        <a href="{% url 'news:reader_home' %}">Home</a>
+        <a href="{% url 'news:find_newsletters' %}">Find newsletters</a>
+    </nav>
+
+    {% if publisher %}
+        <h1>{{ publisher.title }}</h1>
+        <p>{{ publisher.description }}</p>
+        <form method="POST" action="{% url 'news:create_subscription' %}">
+            {% csrf_token %}
+            <input type="hidden" name="publisher" value="{{ publisher.id }}">
+            <button type="submit">Subscribe</button>
+        </form>
+    {% elif journalist %}
+        <h1>{{ journalist }}</h1>
+        <form method="POST" action="{% url 'news:create_subscription' %}">
+            {% csrf_token %}
+            <input type="hidden" name="journalist" value="{{ journalist.id }}">
+            <button type="submit">Subscribe</button>
+        </form>
+    {% endif %}
+
+    <h2>Articles</h2>
+    {% if articles %}
+        <table border="1" cellpadding="10" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <td>{{ article.title }}</td>
+                        <td>{{ article.author }}</td>
+                        <td>
+                            <a href="{% url 'news:article_details' article.id %}">
+                                <button type="button">Details</button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No articles published yet.</p>
+    {% endif %}
+{% endblock %}
