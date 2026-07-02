@@ -39,6 +39,9 @@ M06T08 – Capstone Project – News Application/
 
 ### 1. Create and activate a virtual environment
 
+Unzip `news_site.zip` into a folder of your choice, then move into the
+project root (the folder that contains `manage.py`):
+
 ```powershell
 cd news_site
 python -m venv venv
