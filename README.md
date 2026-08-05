@@ -106,7 +106,7 @@ title, description, username and password, are logged straight in, and land on
 the **publisher home page**. Removing publishers and editors is handled by an
 admin from the admin home page (see [Admins](#admins-optional-moderation)
 below).
-## Publisher Homepage
+#### Publisher Homepage
 ![publisher_home](assets/publisher_home.png)
 
 
@@ -115,7 +115,7 @@ below).
 Once at least one publisher exists, an **editor** can register via **Sign Up As
 A Editor**, choosing the publishing house they belong to. Editors review and
 approve the articles written under their publisher.
-## Editor Homepage
+#### Editor Homepage
 ![editor_home](assets/editor_home.png)
 
 ### 3. Register a Journalist (writes articles)
@@ -123,11 +123,11 @@ approve the articles written under their publisher.
 A **journalist** registers via **Sign Up As A Journalist** and can write
 articles. New articles start out unapproved if published by a publishing house. 
 Journalists can group articles together into newsletters.
-## Journalist Homepage
+#### Journalist Homepage
 ![journalist_home](assets/journalist_home.png)
-## Newsletter Directory
+#### Newsletter Directory
 ![newsletter_directory](assets/journalist_newsletter_directory.png)
-## Newsletter Creation
+#### Newsletter Creation
 ![journalist_newsletter_creation](assets/journalist_newsletter_creation.png)
 
 ### 4. Editor approves the articles
@@ -135,9 +135,9 @@ Journalists can group articles together into newsletters.
 An article written by a journalist must be **approved by an editor** before it
 is published. Editors use their approvals dashboard to review and approve (or
 reject) articles for their publishing house.
-## Article Dashboard
+#### Article Dashboard
 ![article_dashboard](assets/article_dashboard.png)
-## Article Review
+#### Article Review
 ![article_review](assets/article_review.png)
 
 ### 5. Readers read the articles
@@ -145,9 +145,9 @@ reject) articles for their publishing house.
 A **reader** registers via **Sign Up As A Reader**, subscribes to publishers
 and/or journalists, and can then read the approved/published articles from those
 subscriptions.
-## Reader Homepage
+#### Reader Homepage
 ![reader_home](assets/reader_home.png)
-## Find Newsletters
+#### Find Newsletters
 ![find_newsletters](assets/find_newsletters.png)
 
 ## REST API
