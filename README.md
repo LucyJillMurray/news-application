@@ -39,9 +39,6 @@ M06T08 – Capstone Project – News Application/
 
 ### 1. Create and activate a virtual environment
 
-Unzip `news_site.zip` into a folder of your choice, then move into the
-project root (the folder that contains `manage.py`):
-
 ```powershell
 cd news_site
 python -m venv venv
@@ -109,6 +106,8 @@ title, description, username and password, are logged straight in, and land on
 the **publisher home page**. Removing publishers and editors is handled by an
 admin from the admin home page (see [Admins](#admins-optional-moderation)
 below).
+![publisher_home](assets/publisher_home.png)
+
 
 ### 2. Register an Editor (belongs to a publisher)
 
