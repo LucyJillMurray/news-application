@@ -1,0 +1,33 @@
+{# Edit article form for publishers to edit spelling and grammar mistakes. #}
+
+{% extends 'base.html' %}
+
+{% block title %}{% if article %}Edit Article{% else %}Article Not Found{% endif %}{% endblock %}
+
+{% block content %}
+    <nav>
+        <a href="{% url 'news:editor_home' %}">Home</a>
+        <a href="{% url 'news:newsletter_directory' %}">Newsletter directory</a>
+        <a href="{% url 'news:article_approvals' %}">Article approvals</a>
+        <a href="{% url 'news:publish_articles' %}">Publish articles</a>
+        <a href="{% url 'news:update_published' %}">Published articles</a>
+    </nav>
+
+    {% if article %}
+        <h2>Edit Article</h2>
+
+        {# Point the form at the update URL when editing.                        #}
+        {# enctype is multipart/form-data so a file could be uploaded if added later. #}
+        <form method="POST" action="{% url 'news:edit_article' article.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {# The ArticleForm renders every field (title, content, published_status) #}
+            {# with built-in validation.                                              #}
+            {{ form.as_p }}
+
+            <button type="submit">Save Changes</button>
+        </form>
+    {% else %}
+        <p>Article not found.</p>
+    {% endif %}
+{% endblock %}

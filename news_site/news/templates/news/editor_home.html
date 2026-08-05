@@ -1,0 +1,30 @@
+{# Editor home page. #}
+{% extends 'base.html' %}
+
+{% block title %}Editor Home{% endblock %}
+
+{% block content %}
+    <h1>Welcome, {{ editor.user.username }} from {{ editor.publisher }}!</h1>
+
+    <p>You are now logged in.</p>
+
+    {# Logout button (POST so it can't be triggered by a plain link) #}
+    <form method="POST" action="{% url 'news:logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+
+
+    {# Editor navigation bar #}
+    <nav>
+        <a href="{% url 'news:editor_home' %}">Home</a>
+        <a href="{% url 'news:newsletter_directory' %}">Newsletter<br>Directory</a>
+        <a href="{% url 'news:article_approvals' %}">Article<br>Approvals</a>
+        <a href="{% url 'news:update_approvals' %}">Update<br>Approvals</a>
+        <a href="{% url 'news:publish_articles' %}">Publish<br>Articles</a>
+        <a href="{% url 'news:update_published' %}">Published<br>Articles</a>
+    </nav>
+
+    
+    
+{% endblock %}
