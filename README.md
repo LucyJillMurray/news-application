@@ -106,6 +106,7 @@ title, description, username and password, are logged straight in, and land on
 the **publisher home page**. Removing publishers and editors is handled by an
 admin from the admin home page (see [Admins](#admins-optional-moderation)
 below).
+## Publisher Homepage
 ![publisher_home](assets/publisher_home.png)
 
 
@@ -114,61 +115,40 @@ below).
 Once at least one publisher exists, an **editor** can register via **Sign Up As
 A Editor**, choosing the publishing house they belong to. Editors review and
 approve the articles written under their publisher.
+## Editor Homepage
+![editor_home](assets/editor_home.png)
 
 ### 3. Register a Journalist (writes articles)
 
 A **journalist** registers via **Sign Up As A Journalist** and can write
-articles. New articles start out unapproved.
+articles. New articles start out unapproved if published by a publishing house. 
+Journalists can group articles together into newsletters.
+## Journalist Homepage
+![journalist_home](assets/journalist_home.png)
+## Newsletter Directory
+![newsletter_directory](assets/journalist_newsletter_directory.png)
+## Newsletter Creation
+![journalist_newsletter_creation](assets/journalist_newsletter_creation.png)
 
 ### 4. Editor approves the articles
 
 An article written by a journalist must be **approved by an editor** before it
 is published. Editors use their approvals dashboard to review and approve (or
 reject) articles for their publishing house.
+## Article Dashboard
+![article_dashboard](assets/article_dashboard.png)
+## Article Review
+![article_review](assets/article_review.png)
 
 ### 5. Readers read the articles
 
 A **reader** registers via **Sign Up As A Reader**, subscribes to publishers
 and/or journalists, and can then read the approved/published articles from those
 subscriptions.
-
-### Admins (optional moderation)
-
-Admins/superusers still exist, but their role is now limited to **moderation**:
-they sign in to remove editors and publishers that need to be taken down. They
-are no longer required to create publishers. To create one, run:
-
-```powershell
-python manage.py createsuperuser
-```
-
-After logging in, an admin lands on the **admin home** page
-(`/admin-dashboard/`, URL name `news:admin_home`). It lists every **publisher**
-and every **editor** on the site, each with a delete button:
-
-- **Delete Publisher** removes the publishing house
-  (`/publisher/<id>/delete/`, `news:delete_publisher`).
-- **Delete Editor** removes the editor *and* their underlying user account
-  (`/publisher/editor/<id>/delete/`, `news:delete_editor`).
-
-Both actions require staff access plus the matching `news.delete_publisher` /
-`news.delete_editor` permission (superusers have these automatically).
-
-**Summary of the flow:**
-
-```
-Publisher  (self-registers, manages its editors)
-    │
-    ├── Editor      (joins a publisher, approves articles)
-    │
-    ├── Journalist  (writes articles → approved by editor)
-    │
-    └── Reader      (subscribes & reads approved articles)
-
-Admin (optional) ── moderates: removes editors / publishers as needed
-```
-
----
+## Reader Homepage
+![reader_home](assets/reader_home.png)
+## Find Newsletters
+![find_newsletters](assets/find_newsletters.png)
 
 ## REST API
 
